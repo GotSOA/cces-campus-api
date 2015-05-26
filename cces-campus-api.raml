@@ -1,5 +1,6 @@
 #%RAML 0.8
 ---
+baseUri: http://mocksvc.mulesoft.com/mocks/ae299803-02fa-415c-bb8a-4b92566fdde8/mocks/39d9aa85-9a02-46f0-a97f-8c8000e3cbe1
 title: UCOP Campus API
 version: v1
 
@@ -297,3 +298,502 @@ version: v1
                   "status": "ACK",
                   "confirmationId": "UCD-123ZULU321"
                 }
+/PersonallyIdentifiableInformation:
+  /IF-PII-1:
+    description: Get-Student-PII
+    post:
+      description: Hub requests PII information from Home and/or Host campus.
+      body:
+        application/json:
+          schema: |
+            {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "id": "/",
+              "type": "object",
+              "properties": {
+                "Home_Campus_Code": {
+                  "id": "Home_Campus_Code",
+                  "type": "string"
+                },
+                "Home_Campus_Email": {
+                  "id": "Home_Campus_Email",
+                  "type": "string"
+                },
+                "Home_Campus_User_Eppn": {
+                  "id": "Home_Campus_User_Eppn",
+                  "type": "string"
+                },
+                "Home_Campus_User_Identifier": {
+                  "id": "Home_Campus_User_Identifier",
+                  "type": "string"
+                },
+                "Timestamp": {
+                  "id": "Timestamp",
+                  "type": "string"
+                },
+                "Host_Campus_Code": {
+                  "id": "Host_Campus_Code",
+                  "type": "string"
+                },
+                "Host_Campus_Email": {
+                  "id": "Host_Campus_Email",
+                  "type": "string"
+                },
+                "Host_Campus_User_Eppn": {
+                  "id": "Host_Campus_User_Eppn",
+                  "type": "string"
+                },
+                "Host_Campus_User_Identifier": {
+                  "id": "Host_Campus_User_Identifier",
+                  "type": "string"
+                }
+              }
+            }
+          example: |
+            {
+               "Home_Campus_Code":"UCB",
+               "Home_Campus_Email":"ucb-info@ucop.edu",
+               "Home_Campus_User_Eppn":"value",
+               "Home_Campus_User_Identifier":"value",
+               "Timestamp":"2015-04-23T18:25:43.511Z"
+            }
+      responses:
+        200:
+          body:
+            application/json: 
+              schema: |
+                {
+                  "$schema": "http://json-schema.org/draft-04/schema#",
+                  "id": "/",
+                  "type": "object",
+                  "properties": {
+                    "Student_PII": {
+                      "id": "Student_PII",
+                      "type": "array",
+                      "items": {
+                        "id": "0",
+                        "type": "object",
+                        "properties": {
+                          "Address": {
+                            "id": "Address",
+                            "type": "string"
+                          },
+                          "Birthdate": {
+                            "id": "Birthdate",
+                            "type": "string"
+                          },
+                          "City": {
+                            "id": "City",
+                            "type": "string"
+                          },
+                          "Classification": {
+                            "id": "Classification",
+                            "type": "string"
+                          },
+                          "First_Name": {
+                            "id": "First_Name",
+                            "type": "string"
+                          },
+                          "Gender": {
+                            "id": "Gender",
+                            "type": "string"
+                          },
+                          "Home_Campus_Code": {
+                            "id": "Home_Campus_Code",
+                            "type": "string"
+                          },
+                          "Home_Campus_Email": {
+                            "id": "Home_Campus_Email",
+                            "type": "string"
+                          },
+                          "Home_Campus_User_Eppn": {
+                            "id": "Home_Campus_User_Eppn",
+                            "type": "string"
+                          },
+                          "Home_Campus_User_Identifier": {
+                            "id": "Home_Campus_User_Identifier",
+                            "type": "string"
+                          },
+                          "Host_Campus_Code": {
+                            "id": "Host_Campus_Code",
+                            "type": "string"
+                          },
+                          "Host_Campus_User_Eppn": {
+                            "id": "Host_Campus_User_Eppn",
+                            "type": "string"
+                          },
+                          "Host_Campus_User_Identifier": {
+                            "id": "Host_Campus_User_Identifier",
+                            "type": "string"
+                          },
+                          "Last_Name": {
+                            "id": "Last_Name",
+                            "type": "string"
+                          },
+                          "State": {
+                            "id": "State",
+                            "type": "string"
+                          },
+                          "ZipCode": {
+                            "id": "ZipCode",
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              example: |
+                {
+                   "Student_PII":[
+                      {
+                         "Address":"value",
+                         "Birthdate":"12-31-1995",
+                         "City":"San Fransisco",
+                         "Classification":"freshmen",
+                         "First_Name":"John",
+                         "Gender":"male",
+                         "Home_Campus_Code":"UCB",
+                         "Home_Campus_Email":"ucb-info@ucop.edu",
+                         "Home_Campus_User_Eppn":"value",
+                         "Home_Campus_User_Identifier":"value"
+                      }
+                   ]
+                }
+                
+            
+    
+/Grades:
+  /IF-grades-1:
+    description:
+    post:
+      description: <<insert text or markdown here>>
+      body:
+        application/json:
+          schema: | 
+            {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "id": "/",
+              "type": "object",
+              "properties": {
+                "Host_Campus_Code": {
+                  "id": "Host_Campus_Code",
+                  "type": "string"
+                },
+                "Home_Campus_Student_Identifier": {
+                  "id": "Home_Campus_Student_Identifier",
+                  "type": "string"
+                },
+                "Academic_Term": {
+                  "id": "Academic_Term",
+                  "type": "string"
+                },
+                "Academic_Term_Type": {
+                  "id": "Academic_Term_Type",
+                  "type": "string"
+                },
+                "Academic_Year": {
+                  "id": "Academic_Year",
+                  "type": "string"
+                },
+                "Course_Offering_Code": {
+                  "id": "Course_Offering_Code",
+                  "type": "string"
+                },
+                "Course_Title": {
+                  "id": "Course_Title",
+                  "type": "string"
+                },
+                "Section_Resource_Number": {
+                  "id": "Section_Resource_Number",
+                  "type": "string"
+                },
+                "Grade_Preference": {
+                  "id": "Grade_Preference",
+                  "type": "string"
+                }
+              }
+            }
+          example: |
+            {
+               "Host_Campus_Code":"UCB",
+               "Home_Campus_Student_Identifier":"123456789",
+               "Academic_Term":"Fall",
+               "Academic_Term_Type":"Quarter",
+               "Academic_Year":"2015",
+               "Course_Offering_Code":"HIS",
+               "Course_Title":"Calculus for Science, Engineering and Mathematics",
+               "Section_Resource_Number":"12345",
+               "Grade_Preference":"Grade"
+            }
+      responses:
+        200:
+          body:
+            application/json:
+              schema: |
+                {
+                  "$schema": "http://json-schema.org/draft-04/schema#",
+                  "id": "/",
+                  "type": "object",
+                  "properties": {
+                    "functionality": {
+                      "id": "functionality",
+                      "type": "string"
+                    },
+                    "method": {
+                      "id": "method",
+                      "type": "string"
+                    },
+                    "verb": {
+                      "id": "verb",
+                      "type": "string"
+                    },
+                    "status": {
+                      "id": "status",
+                      "type": "string"
+                    },
+                    "confirmationId": {
+                      "id": "confirmationId",
+                      "type": "string"
+                    }
+                  }
+                }
+              example: |
+                {
+                   "functionality":"Grades",
+                   "method":"Grade-Preference-Change-Notification",
+                   "verb":"POST",
+                   "status":"ACK",
+                   "confirmationId":"123ZULU321"
+                }
+  /IF-grades-2:
+    description: Student-Grades-Request
+    /{year}:
+      /{term}:
+        /{type}:
+          get:
+            description: CCES Hub requests Grades for a particular student from the HOST campus.
+            queryParameters:
+              hostStudentId:
+            responses:    
+            body:
+              application/json:
+                schema: |
+                  {
+                    "$schema": "http://json-schema.org/draft-04/schema#",
+                    "id": "/",
+                    "type": "object",
+                    "properties": {
+                      "Host_Campus_Student_Identifier": {
+                        "id": "Host_Campus_Student_Identifier",
+                        "type": "string"
+                      },
+                      "Host_Campus_Code": {
+                        "id": "Host_Campus_Code",
+                        "type": "string"
+                      },
+                      "Home_Campus_Student_Identifier": {
+                        "id": "Home_Campus_Student_Identifier",
+                        "type": "string"
+                      },
+                      "Home_Campus_Code": {
+                        "id": "Home_Campus_Code",
+                        "type": "string"
+                      },
+                      "First_Name": {
+                        "id": "First_Name",
+                        "type": "string"
+                      },
+                      "Last_Name": {
+                        "id": "Last_Name",
+                        "type": "string"
+                      },
+                      "Student_Grades": {
+                        "id": "Student_Grades",
+                        "type": "array",
+                        "items": {
+                          "id": "0",
+                          "type": "object",
+                          "properties": {
+                            "Academic_Term": {
+                              "id": "Academic_Term",
+                              "type": "string"
+                            },
+                            "Academic_Term_Type": {
+                              "id": "Academic_Term_Type",
+                              "type": "string"
+                            },
+                            "Academic_Year": {
+                              "id": "Academic_Year",
+                              "type": "string"
+                            },
+                            "Course_Offering_Code": {
+                              "id": "Course_Offering_Code",
+                              "type": "string"
+                            },
+                            "Course_Title": {
+                              "id": "Course_Title",
+                              "type": "string"
+                            },
+                            "Section_Resource_Number": {
+                              "id": "Section_Resource_Number",
+                              "type": "string"
+                            },
+                            "Grade_Preference": {
+                              "id": "Grade_Preference",
+                              "type": "string"
+                            },
+                            "Grade": {
+                              "id": "Grade",
+                              "type": "string"
+                            },
+                            "Units": {
+                              "id": "Units",
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                example: | 
+                  {
+                   "Host_Campus_Student_Identifier":"123456789",
+                   "Host_Campus_Code":"UCSB",
+                   "Home_Campus_Student_Identifier":"987654321",
+                   "Home_Campus_Code":"UCD",
+                   "First_Name":"John",
+                   "Last_Name":"Smith",
+                   "Student_Grades":[
+                      {
+                         "Academic_Term":"Fall",
+                         "Academic_Term_Type":"Quarter",
+                         "Academic_Year":"2015",
+                         "Course_Offering_Code":"HIST 101",
+                         "Course_Title":"Calculus for Science, Engineering and Mathematics",
+                         "Section_Resource_Number":"12345",
+                         "Grade_Preference":"Grade",
+                         "Grade":"TBD",
+                         "Units":"credit"
+                      }
+                   ]
+                  }
+  /IF-grades-4:
+    description: Relay-Student-Grades-to-Host-campus
+    post:
+      description: CCES Hub relays the Student Grades to the HOME campus.
+      body:
+        application/json:
+          schema: |
+              {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "id": "/",
+                "type": "object",
+                "properties": {
+                  "Sender": {
+                    "id": "Sender",
+                    "type": "string"
+                  },
+                  "Transaction_Id": {
+                    "id": "Transaction_Id",
+                    "type": "string"
+                  },
+                  "Host_Campus_Code": {
+                    "id": "Host_Campus_Code",
+                    "type": "string"
+                  },
+                  "Host_Campus_Student_Identifier": {
+                    "id": "Host_Campus_Student_Identifier",
+                    "type": "string"
+                  },
+                  "Home_Campus_Student_Identifier": {
+                    "id": "Home_Campus_Student_Identifier",
+                    "type": "string"
+                  },
+                  "Academic_Term": {
+                    "id": "Academic_Term",
+                    "type": "string"
+                  },
+                  "Academic_Term_Type": {
+                    "id": "Academic_Term_Type",
+                    "type": "string"
+                  },
+                  "Academic_Year": {
+                    "id": "Academic_Year",
+                    "type": "string"
+                  },
+                  "Course_Offering_Code": {
+                    "id": "Course_Offering_Code",
+                    "type": "string"
+                  },
+                  "Course_Title": {
+                    "id": "Course_Title",
+                    "type": "string"
+                  },
+                  "Section_Resource_Number": {
+                    "id": "Section_Resource_Number",
+                    "type": "string"
+                  },
+                  "First_Name": {
+                    "id": "First_Name",
+                    "type": "string"
+                  },
+                  "Last_Name": {
+                    "id": "Last_Name",
+                    "type": "string"
+                  },
+                  "Grade": {
+                    "id": "Grade",
+                    "type": "string"
+                  },
+                  "Grade_Preference": {
+                    "id": "Grade_Preference",
+                    "type": "string"
+                  },
+                  "Units": {
+                    "id": "Units",
+                    "type": "string"
+                  }
+                }
+              }
+          example: | 
+              {
+                 "Sender":"CCES_HUB",
+                 "Transaction_Id":"1122334455",
+                 "Host_Campus_Code":"UCB",
+                 "Host_Campus_Student_Identifier":"123456789",
+                 "Home_Campus_Student_Identifier":"987654321",
+                 "Academic_Term":"Fall",
+                 "Academic_Term_Type":"Quarter",
+                 "Academic_Year":"2015",
+                 "Course_Offering_Code":"HIS",
+                 "Course_Title":"Calculus for Science, Engineering and Mathematics",
+                 "Section_Resource_Number":"TBD",
+                 "First_Name":"John",
+                 "Last_Name":"Smith",
+                 "Grade":"TBD",
+                 "Grade_Preference":"Grade",
+                 "Units":"credit"
+              }
+      responses:  
+        200:
+          body:
+            application/json:
+              schema: |
+                {
+                  "$schema": "http://json-schema.org/draft-04/schema#",
+                  "id": "/",
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "id": "status",
+                      "type": "string"
+                    }
+                  }
+                }
+              example: |
+                {
+                   "status":"ACK"
+                }
+
+                
