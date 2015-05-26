@@ -1,0 +1,299 @@
+#%RAML 0.8
+---
+title: UCOP Campus API
+version: v1
+
+/Eligibility:
+  /IF-eligibility-1:
+    /{Home_Campus_Student_Identifier}:
+       get:
+        responses:
+          200:
+            body:
+              application/json:
+                schema: |
+                  { "$schema": "http://json-schema.org/schema",
+                    "type": "object",
+                    "description": "Basic Eligibility",
+                    "properties": {
+                      "Basic_Eligibility": { "type": "boolean" },
+                      "Eligibility_Check_Results": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "Check": { "type": "string" },
+                            "Result": { "type": "boolean" }
+                          },
+                          "required": [ "Check", "Result" ]
+                        }
+                      }
+                    },
+                    "required": [ "Basic_Eligibility", "Eligibility_Check_Results" ]
+                  }
+                example: |
+                  {
+                    "Basic_Eligibility": false,
+                    "Eligibility_Check_Results": [
+                      {
+                        "Check": "Completed Min Units",
+                        "Result": false
+                      },
+                      {
+                        "Check": "Good Academic Standing",
+                        "Result": true
+                      },
+                      {
+                        "Check": "Full Time Student",
+                        "Result": true
+                      }
+                    ]
+                  }
+
+/Calendar:
+  /IF-calendar-1:
+    /{year}:
+      /{term_type}:
+        /{term}:
+          get:
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: |
+                      {
+                        "$schema": "http://json-schema.org/schema",
+                        "type": "object",
+                        "properties": {
+                          "Events": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "Event": { "type": "string" },
+                                "Date": { "type": "string" }
+                              },
+                              "required": [ "Event", "Date" ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "Events"
+                        ]
+                      }
+                    example: |
+                      {
+                        "Events": [
+                          {
+                          "Event": "Registration_Open_Period",
+                          "Date": "value"
+                          },
+                          {
+                          "Event": "Quarter_Begins",
+                          "Date": "value"
+                          },
+                          {
+                          "Event": "Quarter_Ends",
+                          "Date": "value"
+                          },
+                          {
+                          "Event": "Semester_Begins",
+                          "Date": "value"
+                          },
+                          {
+                          "Event": "Semester_Ends",
+                          "Date": "value"
+                          },
+                          {
+                          "Event": "Instruction_Starts",
+                          "Date": "value"
+                          },
+                          {
+                          "Event": "Instruction_Ends",
+                          "Date": "value"
+                          },
+                          {
+                          "Event": "Grade_Submission_Deadline",
+                          "Date": "value"
+                          },
+                          {
+                          "Event": "Last_Drop_Day",
+                          "Date": "value"
+                          },
+                          {
+                          "Event": "Last_Add_Day",
+                          "Date": "value"
+                          },
+                          {
+                          "Event": "Last_Day_Change_Grading_Preference",
+                          "Date": "value"
+                          }
+                        ]
+                      }
+/courseCatalog:
+  /IF-course-1:
+    /{year}:
+      /{term_type}:
+        /{term}:
+          get:
+            queryParameters:
+              hostRequestId:
+                description: unique identifier for the course request
+
+/enrollment:
+  /IF-enroll-2:
+    post:
+      body:
+        application/json:
+          schema: |
+            {
+              "$schema": "http://json-schema.org/schema",
+              "type": "object",
+              "properties": {
+                "Sender": {
+                  "type": "string"
+                },
+                "Sender_Request_Id": {
+                  "type": "string"
+                },
+                "Host_Campus_Code": {
+                  "type": "string"
+                },
+                "Academic_Term_Type": {
+                  "type": "string"
+                },
+                "Academic_Term": {
+                  "type": "string"
+                },
+                "Academic_Year": {
+                  "type": "string"
+                },
+                "Enrollment_Status": {
+                  "type": "string"
+                },
+                "Section_Resource_Number": {
+                  "type": "string"
+                },
+                "Lecture_Resource_Number": {
+                  "type": "string"
+                },
+                "Course_Title": {
+                  "type": "string"
+                },
+                "Course_Offering_Code": {
+                  "type": "string"
+                },
+                "User_Type": {
+                  "type": "string"
+                },
+                "Home_Campus_User_Identifier": {
+                  "type": "string"
+                },
+                "Home_Campus_User_Eppn": {
+                  "type": "string"
+                },
+                "Host_Campus_User_Identifier": {
+                  "type": "string"
+                },
+                "Host_Campus_User_Eppn": {
+                  "type": "string"
+                },
+                "Last_Name": {
+                  "type": "string"
+                },
+                "First_Name": {
+                  "type": "string"
+                },
+                "Home_Campus_Email": {
+                  "type": "string"
+                },
+                "Host_Campus_Email": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "Sender",
+                "Sender_Request_Id",
+                "Host_Campus_Code",
+                "Academic_Term_Type",
+                "Academic_Term",
+                "Academic_Year",
+                "Enrollment_Status",
+                "Section_Resource_Number",
+                "Lecture_Resource_Number",
+                "Course_Title",
+                "Course_Offering_Code",
+                "User_Type",
+                "Home_Campus_User_Identifier",
+                "Home_Campus_User_Eppn",
+                "Last_Name",
+                "First_Name",
+                "Home_Campus_Email",
+                "Host_Campus_Email"
+              ]
+            }
+          example: |
+            {
+              "Sender": "CCES-HUB",
+              "Sender_Request_Id": "987654321",
+              "Host_Campus_Code": "UCSC",
+              "Academic_Term_Type": "",
+              "Academic_Term": "",
+              "Academic_Year": "",
+              "Enrollment_Status": "E",
+              "Section_Resource_Number": "",
+              "Lecture_Resource_Number": "",
+              "Course_Title": "",
+              "Course_Offering_Code": "",
+              "User_Type": "",
+              "Home_Campus_User_Identifier": "123456789",
+              "Home_Campus_User_Eppn": "jcarberr@brown.edu",
+              "Host_Campus_User_Identifier": "",
+              "Host_Campus_User_Eppn": "",
+              "Last_Name": "",
+              "First_Name": "",
+              "Home_Campus_Email": "",
+              "Host_Campus_Email": ""
+            }
+      responses:
+        200:
+          body:
+            application/json:
+              schema: |
+                {
+                  "$schema": "http://json-schema.org/schema",
+                  "type": "object",
+                  "properties": {
+                    "functionality": {
+                      "type": "string"
+                    },
+                    "method": {
+                      "type": "string"
+                    },
+                    "verb": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "confirmationId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "functionality",
+                    "method",
+                    "verb",
+                    "status",
+                    "confirmationId"
+                  ]
+                }
+              example: |
+                {
+                  "functionality": "Enrollment and Drops",
+                  "method": "Enrollment Notification",
+                  "verb": "POST",
+                  "status": "ACK",
+                  "confirmationId": "UCD-123ZULU321"
+                }
