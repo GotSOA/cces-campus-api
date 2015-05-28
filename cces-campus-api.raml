@@ -55,7 +55,6 @@ version: v1
 /Calendar:
   /IF-calendar-1:
     /{year}:
-      /{term_type}:
         /{term}:
           get:
             responses:
@@ -135,12 +134,192 @@ version: v1
 /courseCatalog:
   /IF-course-1:
     /{year}:
-      /{term_type}:
-        /{term}:
-          get:
-            queryParameters:
-              hostRequestId:
-                description: unique identifier for the course request
+      /{term}:
+        get:
+          queryParameters:
+            hostRequestId:
+              description: unique identifier for the course request
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: |
+                    {
+                      "$schema": "http://json-schema.org/schema",
+                      "type": "object",
+                      "properties": {
+                        "Requestor": {
+                          "type": "string"
+                        },
+                        "Request_Timestamp": {
+                          "type": "string"
+                        },
+                        "Catalog": {
+                          "type": "object",
+                          "properties": {
+                            "Academic_Term": {
+                              "type": "string"
+                            },
+                            "Academic_Year": {
+                              "type": "string"
+                            },
+                            "Courses_Data": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "Course Offering Code": {
+                                    "type": "string"
+                                  },
+                                  "Course_Title": {
+                                    "type": "string"
+                                  },
+                                  "Course_Description": {
+                                    "type": "string"
+                                  },
+                                  "Course_Subject": {
+                                    "type": "string"
+                                  },
+                                  "Course Exam Date": {
+                                    "type": "string"
+                                  },
+                                  "Instructors": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "Person_Identifier": {
+                                          "type": "string"
+                                        },
+                                        "FirstName": {
+                                          "type": "string"
+                                        },
+                                        "LastName": {
+                                          "type": "string"
+                                        },
+                                        "IsPrimary": {
+                                          "type": "boolean"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "Units": {
+                                    "type": "integer"
+                                  },
+                                  "Prerequisites": {
+                                    "type": "string"
+                                  },
+                                  "Sections_Data": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "Section Offering Code": {
+                                          "type": "string"
+                                        },
+                                        "Section_Resource_Number": {
+                                          "type": "string"
+                                        },
+                                        "Section_Type": {
+                                          "type": "string"
+                                        },
+                                        "Meetings": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "Day_of_Week": {
+                                                "type": "string"
+                                              },
+                                              "From_Time": {
+                                                "type": "string"
+                                              },
+                                              "To_Time": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "Section_Exam_Date": {
+                                          "type": "string"
+                                        },
+                                        "Max_Enrollment_Cap": {
+                                          "type": "integer"
+                                        },
+                                        "Units": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "required": [
+                        "Requestor",
+                        "Request_Timestamp",
+                        "Catalog"
+                      ]
+                    }
+                  example: |
+                    {
+                      "Requestor": "HUB",
+                      "Request_Timestamp": "2015-04-21T18:25:43-05:00",
+                      "Catalog": {
+                          "Academic_Term": "",
+                          "Academic_Year": "",
+                          "Courses_Data": [
+                              {
+                                  "Course Offering Code": "value",
+                                  "Course_Title": "value",
+                                  "Course_Description": "value",
+                                  "Course_Subject": "subject 1, subject 2, subject3",
+                                  "Course Exam Date": "2015-06-21",
+                                  "Instructors": [
+                                      {
+                                          "Person_Identifier": "12345",
+                                          "FirstName": "Joe",
+                                          "LastName": "Jackson",
+                                          "IsPrimary": true
+                                      },
+                                      {
+                                          "Person_Identifier": "12346",
+                                          "FirstName": "Jane",
+                                          "LastName": "Darrel",
+                                          "IsPrimary": false
+                                      }
+                                  ],
+                                  "Units": 4,
+                                  "Prerequisites": "big-text-string",
+                                  "Sections_Data": [
+                                      {
+                                          "Section Offering Code": "value1",
+                                          "Section_Resource_Number": "value11",
+                                          "Section_Type": "",
+                                          "Meetings": [
+                                              {
+                                                  "Day_of_Week": "Mon",
+                                                  "From_Time": "",
+                                                  "To_Time": ""
+                                              },
+                                              {
+                                                  "Day_of_Week": "Tue",
+                                                  "From_Time": "",
+                                                  "To_Time": ""
+                                              }
+                                          ],
+                                          "Section_Exam_Date": "2015-06-28",
+                                          "Max_Enrollment_Cap": 50,
+                                          "Units": "4"
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  }
 
 /enrollment:
   /IF-enroll-2:
@@ -363,85 +542,90 @@ version: v1
             application/json: 
               schema: |
                 {
-                  "$schema": "http://json-schema.org/draft-04/schema#",
-                  "id": "/",
+                  "$schema": "http://json-schema.org/schema",
                   "type": "object",
                   "properties": {
                     "Student_PII": {
-                      "id": "Student_PII",
                       "type": "array",
                       "items": {
-                        "id": "0",
                         "type": "object",
                         "properties": {
                           "Address": {
-                            "id": "Address",
                             "type": "string"
                           },
                           "Birthdate": {
-                            "id": "Birthdate",
                             "type": "string"
                           },
                           "City": {
-                            "id": "City",
                             "type": "string"
                           },
                           "Classification": {
-                            "id": "Classification",
                             "type": "string"
                           },
                           "First_Name": {
-                            "id": "First_Name",
                             "type": "string"
                           },
                           "Gender": {
-                            "id": "Gender",
+                            "type": "string"
+                          },
+                          "encrypted_SSN": {
                             "type": "string"
                           },
                           "Home_Campus_Code": {
-                            "id": "Home_Campus_Code",
                             "type": "string"
                           },
                           "Home_Campus_Email": {
-                            "id": "Home_Campus_Email",
                             "type": "string"
                           },
                           "Home_Campus_User_Eppn": {
-                            "id": "Home_Campus_User_Eppn",
                             "type": "string"
                           },
                           "Home_Campus_User_Identifier": {
-                            "id": "Home_Campus_User_Identifier",
                             "type": "string"
                           },
                           "Host_Campus_Code": {
-                            "id": "Host_Campus_Code",
                             "type": "string"
                           },
                           "Host_Campus_User_Eppn": {
-                            "id": "Host_Campus_User_Eppn",
                             "type": "string"
                           },
                           "Host_Campus_User_Identifier": {
-                            "id": "Host_Campus_User_Identifier",
                             "type": "string"
                           },
                           "Last_Name": {
-                            "id": "Last_Name",
                             "type": "string"
                           },
                           "State": {
-                            "id": "State",
                             "type": "string"
                           },
                           "ZipCode": {
-                            "id": "ZipCode",
                             "type": "string"
                           }
-                        }
-                      }
+                        },
+                        "required": [
+                          "Address",
+                          "Birthdate",
+                          "City",
+                          "Classification",
+                          "First_Name",
+                          "Gender",
+                          "Home_Campus_Code",
+                          "Home_Campus_Email",
+                          "Home_Campus_User_Eppn",
+                          "Home_Campus_User_Identifier",
+                          "Host_Campus_Code",
+                          "Host_Campus_User_Eppn",
+                          "Host_Campus_User_Identifier",
+                          "Last_Name",
+                          "State",
+                          "ZipCode"
+                        ]
+                      },
                     }
-                  }
+                  },
+                  "required": [
+                    "Student_PII"
+                  ]
                 }
               example: |
                 {
@@ -453,10 +637,17 @@ version: v1
                          "Classification":"freshmen",
                          "First_Name":"John",
                          "Gender":"male",
+                         "encrypted_SSN": “c5fg2fgwgfk5wgimfg656f56f562526lgg”,
                          "Home_Campus_Code":"UCB",
                          "Home_Campus_Email":"ucb-info@ucop.edu",
                          "Home_Campus_User_Eppn":"value",
-                         "Home_Campus_User_Identifier":"value"
+                         "Home_Campus_User_Identifier":"value",
+                         "Host_Campus_Code":"UCLA",
+                         "Host_Campus_User_Eppn":"value",
+                         "Host_Campus_User_Identifier":"value",
+                         "Last_Name":"Smith",
+                         "State":"CA",
+                         "ZipCode":"value"
                       }
                    ]
                 }
@@ -570,7 +761,6 @@ version: v1
     description: Student-Grades-Request
     /{year}:
       /{term}:
-        /{type}:
           get:
             description: CCES Hub requests Grades for a particular student from the HOST campus.
             queryParameters:
@@ -795,5 +985,3 @@ version: v1
                 {
                    "status":"ACK"
                 }
-
-                
